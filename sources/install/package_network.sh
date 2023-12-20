@@ -9,7 +9,7 @@ function install_network_apt_tools() {
     export DEBIAN_FRONTEND=noninteractive
     fapt wireshark tshark hping3 masscan netdiscover tcpdump iptables traceroute dns2tcp freerdp2-x11 \
     rdesktop xtightvncviewer ssh-audit hydra mariadb-client redis-tools
-    fapt remmina remmina-plugin-rdp remmina-plugin-secret
+    fapt remmina remmina-plugin-rdp remmina-plugin-secret libsmbclient-dev libsmbclient
     # remmina-plugin-spice need build ?
     # https://gitlab.com/Remmina/Remmina/-/wikis/Compilation/Compile-on-Debian-10-Buster
 
