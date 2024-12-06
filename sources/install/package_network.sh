@@ -288,6 +288,22 @@ function install_ssh-audit() {
     add-to-list "ssh-audit,https://github.com/jtesta/ssh-audit,ssh-audit is a tool to test SSH server configuration for best practices."
 }
 
+function install_nmap_viewer() {
+    colorecho "Installing Nmap Viewer"
+    git -C /opt/tools/ clone --depth 1 https://github.com/psyray/nmap-viewer
+    cd /opt/tools/nmap-viewer || exit
+    asdf plugin add nodejs
+    NODEJS_VERSION=$(asdf latest nodejs)
+    asdf install nodejs $NODEJS_VERSION
+    asdf global nodejs $NODEJS_VERSION
+    npm ci
+    npm run build
+    npm install -g serve
+    add-aliases nmap-viewer
+    add-history nmap-viewer
+    add-test-command "nmap-viewer -h"
+    add-to-list "nmap-viewer,https://github.com/psyray/nmap-viewer,Nmap Viewer is a web-based application designed to visualize and analyze the output of Nmap scans."
+
 # Package dedicated to network pentest tools
 function package_network() {
     set_env
@@ -314,6 +330,7 @@ function package_network() {
     install_rustscan
     install_legba                   # Login Scanner
     install_ssh-audit               # SSH server audit
+    install_nmap_viewer             # Nmap Viewer
     end_time=$(date +%s)
     local elapsed_time=$((end_time - start_time))
     colorecho "Package network completed in $elapsed_time seconds."
