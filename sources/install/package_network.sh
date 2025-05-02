@@ -254,7 +254,7 @@ function install_ligolo-ng() {
         cd /opt/tools/ligolo-ng || exit
         curl -s https://api.github.com/repos/nicocha30/ligolo-ng/releases/latest | grep '"browser_download_url":' | grep 'linux_amd64' |  grep -o 'https://[^"]*' | head -n 2 | wget -qi -
         for file in ligolo-ng_*_linux_amd64.tar.gz; do tar -xzvf "$file" --wildcards 'agent' 'proxy' --no-anchored;done
-       rm *.tar.gz
+        rm *.tar.gz
     elif [[ $(uname -m) = 'aarch64' ]]
     then
         mkdir -p /opt/tools/ligolo-ng
