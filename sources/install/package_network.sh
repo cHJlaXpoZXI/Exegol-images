@@ -248,10 +248,26 @@ function install_tailscale() {
 function install_ligolo-ng() {
     # CODE-CHECK-WHITELIST=add-aliases
     colorecho "Installing ligolo-ng"
-    git -C /opt/tools clone --depth 1 https://github.com/nicocha30/ligolo-ng.git
-    cd /opt/tools/ligolo-ng || exit
-    go build -o agent cmd/agent/main.go
-    go build -o proxy cmd/proxy/main.go
+    if [[ $(uname -m) = 'x86_64' ]]
+    then
+        mkdir -p /opt/tools/ligolo-ng
+        cd /opt/tools/ligolo-ng || exit
+        curl -s https://api.github.com/repos/nicocha30/ligolo-ng/releases/latest | grep '"browser_download_url":' | grep 'linux_amd64' |  grep -o 'https://[^"]*' | head -n 2 | wget -qi -
+        for file in ligolo-ng_*_linux_amd64.tar.gz; do tar -xzvf "$file" --wildcards 'agent' 'proxy' --no-anchored;done
+       rm *.tar.gz
+    elif [[ $(uname -m) = 'aarch64' ]]
+    then
+        mkdir -p /opt/tools/ligolo-ng
+        cd /opt/tools/ligolo-ng || exit
+        curl -s https://api.github.com/repos/nicocha30/ligolo-ng/releases/latest | grep '"browser_download_url":' | grep 'linux_arm64' |  grep -o 'https://[^"]*' | head -n 2 | wget -qi -
+        for file in ligolo-ng_*_linux_arm64.tar.gz; do tar -xzvf "$file" --wildcards 'agent' 'proxy' --no-anchored;done
+        rm *.tar.gz
+    else
+        git -C /opt/tools clone --depth 1 https://github.com/nicocha30/ligolo-ng.git
+        cd /opt/tools/ligolo-ng || exit
+        go build -o agent cmd/agent/main.go
+        go build -o proxy cmd/proxy/main.go
+    fi
     ln -s /opt/tools/ligolo-ng/proxy /opt/tools/bin/ligolo-ng
     add-history ligolo-ng
     add-test-command "ligolo-ng --help"
