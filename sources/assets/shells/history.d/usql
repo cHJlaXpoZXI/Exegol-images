@@ -1,0 +1,4 @@
+usql --no-password postgres://"$USER"@"$IP"/$DATABASE
+usql postgres://"$USER":"$PASSWORD"@"$IP"/$DATABASE
+usql mysql://"$USER":"$PASSWORD"@"$IP"/$DATABASE
+usql db.sqlite3
