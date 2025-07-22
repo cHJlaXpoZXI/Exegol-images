@@ -222,6 +222,17 @@ function install_dtrx() {
     add-to-list "dtrx,https://github.com/dtrx-py/dtrx,Do The Right eXtraction - don't remember what set of tar flags or where to pipe the output to extract it? no worries!"
 }
 
+function install_usql() {
+    # CODE-CHECK-WHITELIST=add-aliases
+    colorecho "Installing usql"
+    go install -v github.com/xo/usql@master
+    asdf reshim golang
+    add-history usql
+    add-test-command "usql --help"
+    add-to-list "usql,https://github.com/xo/usql,a universal command-line interface for PostgreSQL MySQL Oracle Database SQLite3 Microsoft SQL Server and many other databases including NoSQL and non-relational databases!"
+
+}
+
 # Package dedicated to offensive miscellaneous tools
 function package_misc() {
     set_env
@@ -245,6 +256,7 @@ function package_misc() {
     install_uploader        # uploader for fast file upload
     install_wesng           # Search Windows vulnerability via systeminfo
     install_dtrx            # Intelligent archive extractor
+    install_usql            # Universal SQL command-line client
     post_install
     end_time=$(date +%s)
     local elapsed_time=$((end_time - start_time))
