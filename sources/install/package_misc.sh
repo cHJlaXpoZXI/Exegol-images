@@ -225,7 +225,11 @@ function install_dtrx() {
 function install_usql() {
     # CODE-CHECK-WHITELIST=add-aliases
     colorecho "Installing usql"
-    go install -v github.com/xo/usql@master
+    mkdir -p /opt/tools/usql || exit
+    cd /opt/tools/usql || exit
+    asdf set golang 1.24.1
+    mkdir -p .go/bin
+    GOBIN=/opt/tools/usql/.go/bin go install -v github.com/xo/usql@master
     asdf reshim golang
     add-history usql
     add-test-command "usql --help"
