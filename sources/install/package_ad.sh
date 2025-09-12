@@ -1551,7 +1551,7 @@ function install_pysnaffler(){
 function install_evil-winrm-py() {
     # CODE-CHECK-WHITELIST=add-aliases
     colorecho "Installing evil-winrm-py"
-    pipx install --system-site-packages git+https://github.com/adityatelange/evil-winrm-py
+    pipx install --system-site-package 'evil-winrm-py[kerberos]@git+https://github.com/adityatelange/evil-winrm-py'
     add-history evil-winrm-py
     add-test-command "evil-winrm-py --help"
     add-to-list "evil-winrm-py,https://github.com/adityatelange/evil-winrm-py,Evil-WinRM. But in python"
