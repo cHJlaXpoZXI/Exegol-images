@@ -47,6 +47,11 @@ function add-test-command() {
     echo "$*" >> "/.exegol/unit_tests_all_commands.txt"
 }
 
+function add-test-gui-command() {
+    colorecho "Adding build pipeline test gui command: $*"
+    echo "$*" >> "/.exegol/unit_tests_gui_commands.txt"
+}
+
 function fapt() {
     colorecho "Installing apt package(s): $*"
     # Do apt-get update only when no list are found
@@ -152,6 +157,12 @@ function define_retry_function() {
 for CMD in "${CATCH_AND_RETRY_COMMANDS[@]}"; do
   define_retry_function "$CMD"
 done
+
+# Find UID ownership of unknown user for unprivileged lxc image download
+function fix_ownership() {
+  find "$1" -type l -uid +2000 '!' -user nobody -exec chown -h root:root {} \; 2>/dev/null
+  find "$1" -uid +2000 '!' -user nobody -exec chown root:root {} \; 2>/dev/null
+}
 
 function post_install() {
     # Function used to clean up post-install files
