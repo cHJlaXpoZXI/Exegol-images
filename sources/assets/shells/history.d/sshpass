@@ -1,1 +1,2 @@
 sshpass -p "$PASSWORD" ssh -oStrictHostKeyChecking=no "$USER"@"$TARGET"
+sshpass -p "$PASSWORD" rsync -azh --progress -e "ssh -o StrictHostKeyChecking=no" /opt/resources/linux "$USER"@"$TARGET":/tmp/resources
