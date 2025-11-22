@@ -1558,6 +1558,16 @@ function install_evil-winrm-py() {
     add-to-list "evil-winrm-py,https://github.com/adityatelange/evil-winrm-py,Evil-WinRM. But in python"
 }
 
+function install_keytabextract() {
+    # CODE-CHECK-WHITELIST=add-aliases
+    colorecho "Installing keytabextract"
+    wget -O /opt/tools/bin/keytabextract https://raw.githubusercontent.com/sosdave/KeyTabExtract/refs/heads/master/keytabextract.py
+    chmod +x /opt/tools/bin/keytabextract
+    add-history keytabextract
+    add-test-command "keytabextract |& grep keytabextract"
+    add-to-list "keytabextract,https://github.com/sosdave/KeyTabExtract,KeyTabExtract is a tool to extract valuable information from keytab files."
+}
+
 # Package dedicated to internal Active Directory tools
 function package_ad() {
     set_env
