@@ -1683,6 +1683,7 @@ function package_ad() {
     install_powerview              # Powerview Python implementation 
     install_pysnaffler             # Snaffler, but in Python
     install_evil-winrm-py          # Evil-Winrm, but in Python
+    install_keytabextract          # Extract valuable information from keytab files
     post_install
     end_time=$(date +%s)
     local elapsed_time=$((end_time - start_time))
