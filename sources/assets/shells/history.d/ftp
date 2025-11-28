@@ -1,0 +1,2 @@
+ftp ftp://anonymous:anonymous@"$TARGET"
+ftp ftp://"$USER":"$PASSWORD"@"$TARGET"
