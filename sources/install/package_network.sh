@@ -310,6 +310,15 @@ function install_ssh-audit() {
     add-to-list "ssh-audit,https://github.com/jtesta/ssh-audit,ssh-audit is a tool to test SSH server configuration for best practices."
 }
 
+function install_sharker() {
+    # CODE-CHECK-WHITELIST=add-aliases
+    colorecho "Installing sharker"
+    pipx install --system-site-packages git+https://github.com/synacktiv/sharker.git
+    add-history sharker
+    add-test-command "sharker --help"
+    add-to-list "sharker,https://github.com/synacktiv/sharker,A fast and reliable network capture analyzer"
+}
+
 # Package dedicated to network pentest tools
 function package_network() {
     set_env
@@ -339,6 +348,7 @@ function package_network() {
     install_legba                   # Login Scanner
     install_ssh-audit               # SSH server audit
     install_penelope                # Shell handler
+    install_sharker                 # A simple, reliable and reasonably fast network capture analyzer.
     post_install
     end_time=$(date +%s)
     local elapsed_time=$((end_time - start_time))
