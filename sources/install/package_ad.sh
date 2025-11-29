@@ -1553,6 +1553,15 @@ function install_evil-winrm-py() {
     add-to-list "evil-winrm-py,https://github.com/adityatelange/evil-winrm-py,Evil-WinRM. But in python"
 }
 
+function install_daclsearch() {
+    # CODE-CHECK-WHITELIST=add-aliases
+    colorecho "Installing daclsearch"
+    pipx install --system-site-packages git+https://github.com/cogiceo/daclsearch
+    add-history daclsearch
+    add-test-command "daclsearch --help"
+    add-to-list "daclsearch,https://github.com/uknowsec/daclsearch,Exhaustive search and flexible filtering of Active Directory ACEs"
+}
+
 # Package dedicated to internal Active Directory tools
 function package_ad() {
     set_env
@@ -1668,6 +1677,7 @@ function package_ad() {
     install_powerview              # Powerview Python implementation 
     install_pysnaffler             # Snaffler, but in Python
     install_evil-winrm-py          # Evil-Winrm, but in Python
+    install_daclsearch             # Exhaustive search and flexible filtering of Active Directory ACEs
     post_install
     end_time=$(date +%s)
     local elapsed_time=$((end_time - start_time))
