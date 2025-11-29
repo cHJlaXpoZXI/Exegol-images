@@ -328,8 +328,8 @@ function package_network() {
     install_network_apt_tools
     install_proxychains             # Network tool
     install_remmina                 # Remote desktop client
-    install_nmap                    # Port scanner
     install_nmap-parse-output       # Parse nmap XML files
+    install_nmap                    # Port scanner
     install_udpx
     install_autorecon               # External recon tool
     install_dnschef                 # Python DNS server
