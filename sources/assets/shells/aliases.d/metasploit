@@ -7,6 +7,7 @@ alias msfvenom='BUNDLE_GEMFILE=/opt/tools/metasploit-framework/Gemfile /usr/loca
 msfdb_func() {
     sudo -u postgres sh -c "BUNDLE_GEMFILE=/opt/tools/metasploit-framework/Gemfile /usr/local/rvm/gems/ruby-3.1.5@metasploit-framework/wrappers/bundle exec /opt/tools/metasploit-framework/msfdb $@"
 }
+alias msfdb='msfdb_func'
 __meterpreter_helper() {
     local PAYLOAD="$1"
     local NAME="$2"
