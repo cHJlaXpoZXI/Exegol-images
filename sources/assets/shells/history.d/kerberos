@@ -1,4 +1,3 @@
 klist
 klist purge
 kdestroy
-export KRB5CCNAME="$(pwd)/TGT.ccache"

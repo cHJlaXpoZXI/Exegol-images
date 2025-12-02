@@ -8,7 +8,7 @@ msfdb_func() {
     sudo -u postgres sh -c "BUNDLE_GEMFILE=/opt/tools/metasploit-framework/Gemfile /usr/local/rvm/gems/ruby-3.1.5@metasploit-framework/wrappers/bundle exec /opt/tools/metasploit-framework/msfdb $@"
 }
 alias msfdb='msfdb_func'
-__meterpreter_helper() {
+__meterpreter_handler_helper() {
     local PAYLOAD="$1"
     local NAME="$2"
     local LHOST="$3"
@@ -28,5 +28,5 @@ __meterpreter_helper() {
         exploit -j;
     "
 }
-alias meterpreter_linux='__meterpreter_helper linux/x86/meterpreter/reverse_tcp meterpreter_linux'
-alias meterpreter_windows='__meterpreter_helper windows/meterpreter/reverse_tcp meterpreter_windows'
+alias meterpreter_handler_linux='__meterpreter_handler_helper linux/x86/meterpreter/reverse_tcp meterpreter_linux'
+alias meterpreter_handler_windows='__meterpreter_handler_helper windows/meterpreter/reverse_tcp meterpreter_windows'
