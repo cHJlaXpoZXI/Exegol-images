@@ -8,7 +8,7 @@ function install_network_apt_tools() {
     colorecho "Installing network apt tools"
     export DEBIAN_FRONTEND=noninteractive
     fapt wireshark tshark hping3 masscan netdiscover tcpdump iptables traceroute dns2tcp freerdp2-x11 \
-    rdesktop xtightvncviewer hydra mariadb-client redis-tools mitmproxy
+    rdesktop xtightvncviewer hydra mariadb-client redis-tools mitmproxy fping
 
     add-history wireshark
     add-history tshark
@@ -22,6 +22,7 @@ function install_network_apt_tools() {
     add-history hydra
     add-history xfreerdp
     add-history mitmproxy
+    add-history fping
 
     add-test-command "wireshark --help"                             # Wireshark packet sniffer
     add-test-command "tshark --version"                             # Tshark packet sniffer
@@ -37,6 +38,7 @@ function install_network_apt_tools() {
     add-test-command "mariadb --version"                            # Mariadb client
     add-test-command "redis-cli --version"                          # Redis protocol
     add-test-command "mitmproxy --version"                          # MITMProxy
+    add-test-command "fping --help"                                 # fping
     
     add-to-list "wireshark,https://github.com/wireshark/wireshark,Wireshark is a network protocol analyzer that lets you see what’s happening on your network at a microscopic level."
     add-to-list "tshark,https://github.com/wireshark/wireshark,TShark is a terminal version of Wireshark."
