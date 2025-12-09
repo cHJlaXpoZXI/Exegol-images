@@ -37,4 +37,4 @@ nxc smb "$TARGET" -M ms17-010 -M printnightmare -M remove-mic -M smbghost -M zer
 nxc smb "$TARGET" -M ioxidresolver
 nxc smb "$TARGET" -u "$USER" -p "$PASSWORD" --shares
 nxc smb "$TARGET" --generate-hosts-file hosts
-nxc smb "$TARGET" --generate-krb5-file /etc/krb5.conf && export KRB5_CONFIG=/tmp/krb5.conf
+nxc smb "$TARGET" --generate-krb5-file /tmp/krb5.conf && export KRB5_CONFIG=/tmp/krb5.conf
