@@ -415,7 +415,7 @@ function add_debian_repository_components() {
 
     while IFS= read -r line; do
       if [[ "$line" == "Components"* ]]; then
-        echo  "${line} non-free non-free-firmware contrib" >> "$out_file"
+        echo "${line} non-free non-free-firmware contrib" >> "$out_file"
       else
         echo "$line" >> "$out_file"
       fi
