@@ -193,7 +193,7 @@ function install_creds() {
 
 function install_uploader() {
     colorecho "Installing Uploader"
-    git -C /opt/tools/ clone --depth 1 https://github.com/Frozenka/uploader.git 
+    git -C /opt/tools/ clone --depth 1 https://github.com/Frozenka/uploader.git
     cd /opt/tools/uploader || exit
     python3 -m venv --system-site-packages ./venv
     source ./venv/bin/activate
