@@ -555,6 +555,7 @@ function package_base() {
     add-history ssh
     add-history snmp
     add-history faketime
+    add-history ftp
 
     add-aliases php
     add-aliases python3
