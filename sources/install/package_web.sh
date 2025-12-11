@@ -998,7 +998,7 @@ function install_curlie() {
     rm /tmp/curlie.tar.gz
     mv /tmp/curlie /opt/tools/curlie/curlie
     ln -s "/opt/tools/curlie/bin/curlie" "/opt/tools/bin/curlie"
-    add-test-command "curlie --help"
+    add-test-command "curlie"
     add-to-list "curlie,https://github.com/rs/curlie,Curlie is a frontend to curl that adds the ease of use of httpie without compromising on features and performance"
 }
 
