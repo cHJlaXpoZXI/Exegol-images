@@ -498,7 +498,7 @@ function install_jwt_tool() {
     # Running the tool to create the initial configuration and force it to returns 0
     python3 jwt_tool.py || :
     deactivate
-    
+
     # Configuration
     sed -i 's/^proxy = 127.0.0.1:8080/#proxy = 127.0.0.1:8080/' /root/.jwt_tool/jwtconf.ini
     sed -i 's|^wordlist = jwt-common.txt|wordlist = /opt/tools/jwt_tool/jwt-common.txt|' /root/.jwt_tool/jwtconf.ini
@@ -951,13 +951,13 @@ function install_caido() {
     caido_file_name_cli=$(basename "$caido_cli")
     wget "$caido_cli" -O "/opt/tools/caido/$caido_file_name_cli"
     tar -xvzf "/opt/tools/caido/$caido_file_name_cli" -C /opt/tools/bin/
-    
+
     add-history caido
     add-test-gui-command "caido --no-sandbox"
     add-test-command "caido-cli --help"
     add-to-list "caido,https://docs.caido.io/quickstart/,A lightweight web security auditing toolkit."
 }
-    
+
 function install_token_exploiter() {
     # CODE-CHECK-WHITELIST=add-aliases,add-history
     colorecho "Installing Token Exploiter"
