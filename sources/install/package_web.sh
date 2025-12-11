@@ -197,8 +197,8 @@ function install_xspear() {
     rvm use 3.2.2@xspear --create
     gem install XSpear
     rvm use 3.2.2@default
-    add-aliases Xspear
-    add-history xspear
+    add-aliases XSpear
+    add-history XSpear
     add-test-command "XSpear --help"
     add-to-list "XSpear,https://github.com/hahwul/XSpear,a powerful XSS scanning and exploitation tool."
 }
@@ -1009,7 +1009,6 @@ function package_web() {
     install_cmsmap                  # CMS scanner (Joomla, Wordpress, Drupal)
     install_moodlescan              # Moodle scanner
     install_testssl                 # SSL/TLS scanner
-    # install_sslyze                # SSL/TLS scanner FIXME: Only AMD ?
     install_cloudfail               # Cloudflare misconfiguration detector
     install_eyewitness              # Website screenshoter
     install_oneforall               # OneForAll is a powerful subdomain integration tool

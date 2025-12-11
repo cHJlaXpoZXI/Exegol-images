@@ -232,10 +232,10 @@ function install_pipx() {
 }
 
 function install_pyftpdlib() {
-    # CODE-CHECK-WHITELIST=add-history
     colorecho "Installing pyftpdlib"
     pip3 install pyftpdlib
     add-aliases pyftpdlib
+    add-history pyftpdlib
     add-test-command "python3 -c 'import pyftpdlib'"
     add-to-list "pyftpdlib,https://github.com/giampaolo/pyftpdlib/,Extremely fast and scalable Python FTP server library"
 }
