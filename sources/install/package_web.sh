@@ -975,6 +975,19 @@ function install_bbot() {
     add-to-list "BBOT,https://github.com/blacklanternsecurity/bbot,BEE·bot is a multipurpose scanner inspired by Spiderfoot built to automate your Recon and ASM."
 }
 
+function install_curlie() {
+    # CODE-CHECK-WHITELIST=add-history
+    colorecho "Installing curlie"
+    mkdir -p /opt/tools/curlie || exit
+    cd /opt/tools/curlie || exit
+    asdf set golang 1.24.1
+    mkdir -p .go/bin
+    GOBIN=/opt/tools/curlie/.go/bin go install -v github.com/rs/curlie@latest
+    asdf reshim golang
+    add-aliases curlie
+    add-test-command "curlie --help"
+    add-to-list "curlie,https://github.com/rs/curlie,Curlie is a frontend to curl that adds the ease of use of httpie without compromising on features and performance"
+}
 
 # Package dedicated to applicative and active web pentest tools
 function package_web() {
@@ -1060,6 +1073,7 @@ function package_web() {
     install_caido                   # Caido
     install_token_exploiter         # Github personal token Analyzer
     install_bbot                    # Recursive Scanner
+    install_curlie                  # Mix of cURL and HTTPie
     post_install
     end_time=$(date +%s)
     local elapsed_time=$((end_time - start_time))
