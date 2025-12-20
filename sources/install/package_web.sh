@@ -978,7 +978,6 @@ function install_bbot() {
 function install_curlie() {
     # CODE-CHECK-WHITELIST=add-history,add-aliases
     colorecho "Installing curlie"
-    mkdir -p /opt/tools/curlie || exit
     if [[ $(uname -m) = 'x86_64' ]]
     then
         local arch="amd64"
@@ -996,8 +995,7 @@ function install_curlie() {
     curl --location -o /tmp/curlie.tar.gz "$URL"
     tar -zxf curlie.tar.gz --directory /tmp curlie
     rm /tmp/curlie.tar.gz
-    mv /tmp/curlie /opt/tools/curlie/curlie
-    ln -s "/opt/tools/curlie/curlie" "/opt/tools/bin/curlie"
+    mv /tmp/curlie /opt/tools/bin/curlie
     add-test-command "curlie"
     add-to-list "curlie,https://github.com/rs/curlie,Curlie is a frontend to curl that adds the ease of use of httpie without compromising on features and performance"
 }
