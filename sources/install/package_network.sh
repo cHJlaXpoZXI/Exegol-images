@@ -326,7 +326,6 @@ function install_sharker() {
 function install_ligolo-mp() {
     # CODE-CHECK-WHITELIST=add-aliases,add-history
     colorecho "Installing Ligolo-MP"
-    mkdir -p /opt/tools/ligolo-mp || exit
     if [[ $(uname -m) = 'x86_64' ]]
     then
         local arch="amd64"
@@ -340,8 +339,7 @@ function install_ligolo-mp() {
     URL=$(curl --location --silent "https://api.github.com/repos/ttpreport/ligolo-mp/releases/latest" | grep 'browser_download_url.*ligolo-mp_linux.*'"$arch"'"' | grep -o 'https://[^"]*')
     curl --location -o /tmp/ligolo-mp "$URL"
     chmod +x /tmp/ligolo-mp
-    mv "/tmp/ligolo-mp" "/opt/tools/ligolo-mp/ligolo-mp"
-    ln -s "/opt/tools/ligolo-mp/ligolo-mp" "/opt/tools/bin/ligolo-mp"
+    mv "/tmp/ligolo-mp" "/opt/tools/bin/ligolo-mp"
     add-test-command "ligolo-mp --help"
     add-to-list "ligolo-mp,https://github.com/ttpreport/ligolo-mp,Ligolo-MP is an advanced version of Ligolo-ng with client-server architecture to enable pentesters to play with multiple concurrent tunnels collaboratively"
 }
