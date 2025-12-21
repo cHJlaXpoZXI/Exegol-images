@@ -975,6 +975,30 @@ function install_bbot() {
     add-to-list "BBOT,https://github.com/blacklanternsecurity/bbot,BEE·bot is a multipurpose scanner inspired by Spiderfoot built to automate your Recon and ASM."
 }
 
+function install_curlie() {
+    # CODE-CHECK-WHITELIST=add-history,add-aliases
+    colorecho "Installing curlie"
+    if [[ $(uname -m) = 'x86_64' ]]
+    then
+        local arch="amd64"
+    elif [[ $(uname -m) = 'aarch64' ]]
+    then
+        local arch="arm64"
+    elif [[ $(uname -m) = 'armv7l' ]]
+    then
+        local arch="armv7"
+    else
+        criticalecho-noexit "This installation function doesn't support architecture $(uname -m)" && return
+    fi
+    local URL
+    URL=$(curl --location --silent "https://api.github.com/repos/rs/curlie/releases/latest" | grep 'browser_download_url.*curlie.*linux.*'"$arch"'.*tar.gz"' | grep -o 'https://[^"]*')
+    curl --location -o /tmp/curlie.tar.gz "$URL"
+    tar -zxf curlie.tar.gz --directory /tmp curlie
+    rm /tmp/curlie.tar.gz
+    mv /tmp/curlie /opt/tools/bin/curlie
+    add-test-command "curlie"
+    add-to-list "curlie,https://github.com/rs/curlie,Curlie is a frontend to curl that adds the ease of use of httpie without compromising on features and performance"
+}
 
 # Package dedicated to applicative and active web pentest tools
 function package_web() {
@@ -1060,6 +1084,7 @@ function package_web() {
     install_caido                   # Caido
     install_token_exploiter         # Github personal token Analyzer
     install_bbot                    # Recursive Scanner
+    install_curlie                  # Mix of cURL and HTTPie
     post_install
     end_time=$(date +%s)
     local elapsed_time=$((end_time - start_time))
