@@ -183,7 +183,7 @@ function post_install() {
     rm -rf /var/lib/apt/lists/*
 
     # debconf cache
-    rm -f /var/cache/debconf
+    rm -rf /var/cache/debconf
 
     colorecho "Stop listening processes"
     local listening_processes
