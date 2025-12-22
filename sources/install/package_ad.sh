@@ -303,7 +303,7 @@ function install_aclpwn() {
 }
 
 function install_impacket() {
-    colorecho "Installing Impacket scripts"
+    colorecho "Installing Impacket scripts (Exegol fork)"
     pipx install --system-site-packages git+https://github.com/ThePorgs/impacket
     # Pycryptodome because: https://github.com/fortra/impacket/issues/1634
     pipx inject impacket chardet pycryptodome
@@ -324,6 +324,39 @@ function install_impacket() {
     add-test-command "dacledit.py --help"
     add-test-command "describeTicket.py --help"
     add-to-list "impacket,https://github.com/ThePorgs/impacket,Set of tools for working with network protocols (ThePorgs version)."
+}
+
+function install_impacket_og() {
+    # CODE-CHECK-WHITELIST=add-history
+    colorecho "Installing Impacket scripts (original)"
+    git -C /opt/tools/ clone --depth 1 https://github.com/fortra/impacket impacket-og
+    cd /opt/tools/impacket-og || exit
+    python3 -m venv --system-site-packages ./venv
+    source ./venv/bin/activate
+    pip3 install .
+    pip3 install chardet pycryptodome # simply replicating what we do in install_impacket(), not 100% sure this is needed
+    deactivate
+
+    # Generate aliases dynamically for all impacket-og scripts
+    colorecho "Generating aliases for impacket-og scripts..."
+    alias_file="/opt/.exegol_aliases"
+    impacket_og_dir="/opt/tools/impacket-og"
+    examples_dir="${impacket_og_dir}/examples"
+    venv_python="${impacket_og_dir}/venv/bin/python3"
+
+    # aliases for scripts in the examples directory
+    if [ -d "$examples_dir" ]; then
+        while read -r script_path; do
+            script_name="$(basename "$script_path")"
+            alias_name="${script_name%.py}-og.py"
+            echo "alias ${alias_name}=\"${venv_python} ${script_path}\"" >> "$alias_file"
+        done < <(find "$examples_dir" -maxdepth 1 -type f -name '*.py' | sort)
+    fi
+
+    add-aliases impacket-og
+    add-test-command "ntlmrelayx-og.py --help"
+    add-test-command "secretsdump-og.py --help"
+    add-to-list "impacket,https://github.com/fortra/impacket,Set of tools for working with network protocols (original version)."
 }
 
 function install_pykek() {
@@ -1530,7 +1563,7 @@ function install_powerview() {
     add-to-list "Powerview.py,https://github.com/aniqfakhrul/powerview.py,PowerView.py is an alternative for the awesome original PowerView.ps1 script."
 }
 
-function install_pysnaffler(){
+function install_pysnaffler() {
     colorecho "Installing pysnaffler"
     git -C /opt/tools/ clone --depth 1 https://github.com/skelsec/pysnaffler
     cd /opt/tools/pysnaffler || exit
@@ -1689,6 +1722,7 @@ function package_ad() {
     install_evil-winrm-py          # Evil-Winrm, but in Python
     install_keytabextract          # Extract valuable information from keytab files
     install_daclsearch             # Exhaustive search and flexible filtering of Active Directory ACEs
+    install_impacket_og            # Impacket scripts (original version)
     post_install
     end_time=$(date +%s)
     local elapsed_time=$((end_time - start_time))
