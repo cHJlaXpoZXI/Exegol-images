@@ -984,16 +984,13 @@ function install_curlie() {
     elif [[ $(uname -m) = 'aarch64' ]]
     then
         local arch="arm64"
-    elif [[ $(uname -m) = 'armv7l' ]]
-    then
-        local arch="armv7"
     else
         criticalecho-noexit "This installation function doesn't support architecture $(uname -m)" && return
     fi
     local URL
     URL=$(curl --location --silent "https://api.github.com/repos/rs/curlie/releases/latest" | grep 'browser_download_url.*curlie.*linux.*'"$arch"'.*tar.gz"' | grep -o 'https://[^"]*')
     curl --location -o /tmp/curlie.tar.gz "$URL"
-    tar -zxf curlie.tar.gz --directory /tmp curlie
+    tar -zxf /tmp/curlie.tar.gz --directory /tmp curlie
     rm /tmp/curlie.tar.gz
     mv /tmp/curlie /opt/tools/bin/curlie
     add-test-command "curlie"
