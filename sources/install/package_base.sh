@@ -349,11 +349,8 @@ function install_java11() {
     fi
     rm /tmp/openjdk11.json
     curl --location --output /tmp/openjdk11-jdk.tar.gz "$URL"
-    if [[ -z "$URL" ]]; then
-        cat /tmp/openjdk11-jdk.tar.gz
-    fi
-    rm /tmp/openjdk11-jdk.tar.gz
     tar -xzf /tmp/openjdk11-jdk.tar.gz --directory /tmp
+    rm /tmp/openjdk11-jdk.tar.gz
     mkdir -p "/usr/lib/jvm"
     mv /tmp/jdk-11* /usr/lib/jvm/java-11-openjdk
     for x in /usr/lib/jvm/java-11-openjdk/bin/*; do
