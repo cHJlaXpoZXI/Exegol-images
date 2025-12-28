@@ -1413,7 +1413,7 @@ function install_autobloody() {
     local temp_fix_limit="2026-02-10"
     # https://github.com/CravateRouge/bloodyAD/issues/109
     if check_temp_fix_expiry "$temp_fix_limit"; then
-      pipx inject bloodyAD minikerberos
+      pipx inject autobloody minikerberos
     fi
     add-history autobloody
     add-test-command "autobloody --help"
