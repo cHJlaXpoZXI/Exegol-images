@@ -1012,7 +1012,7 @@ function install_xxeinjector() {
     wget https://raw.githubusercontent.com/enjoiz/XXEinjector/refs/heads/master/XXEinjector.rb -O /opt/tools/bin/XXEinjector.rb
     chmod +x /opt/tools/bin/XXEinjector.rb
     add-history xxeinjector
-    add-test-command "XXEinjector.rb --help"
+    add-test-command "XXEinjector.rb | grep Example"
     add-to-list "XXEinjector,https://github.com/enjoiz/XXEinjector,A tool for XML External Entity (XXE) injection testing"
 }
 
