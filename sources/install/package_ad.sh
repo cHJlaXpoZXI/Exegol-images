@@ -940,7 +940,7 @@ function install_pcredz() {
     cd /opt/tools/PCredz || exit
     python3 -m venv --system-site-packages ./venv
     source ./venv/bin/activate
-    pip3 install Cython python-libpcap
+    pip3 install Cython python-libpcap pcapy-ng
     deactivate
     add-aliases pcredz
     add-history pcredz
