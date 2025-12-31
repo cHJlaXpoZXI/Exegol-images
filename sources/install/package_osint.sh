@@ -114,6 +114,7 @@ function install_simplyemail() {
 }
 
 function install_theharvester() {
+    # CODE-CHECK-WHITELIST=add-aliases
     colorecho "Installing theHarvester"
     pipx install --python 3.13 --system-site-packages git+https://github.com/laramies/theHarvester
     add-history theharvester
