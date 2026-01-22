@@ -91,6 +91,7 @@ function install_searchsploit() {
 
 function install_triliumnext() {
     colorecho "Installing TriliumNext"
+    # TODO : switch to https://github.com/TriliumNext/Trilium
     fapt libpng16-16 libpng-dev pkg-config autoconf libtool build-essential nasm libx11-dev libxkbfile-dev
     # https://github.com/TriliumNext/Notes/issues/1890
     local temp_fix_limit="2026-02-10"
