@@ -634,7 +634,7 @@ function package_base() {
 
     # TLDR
     pipx install --system-site-packages tldr
-    tldr -u
+    /root/.local/bin/tldr -u
 
     post_install
     end_time=$(date +%s)
