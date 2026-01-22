@@ -615,10 +615,6 @@ function package_base() {
     cp -v /root/sources/assets/shells/tmux.conf ~/.tmux.conf
     touch ~/.hushlogin
 
-    # TLDR
-    pipx install --system-site-packages tldr
-    tldr -u
-
     # NVM (install in context)
     zsh -c "source ~/.zshrc && nvm install node && nvm use default"
 
@@ -635,6 +631,10 @@ function package_base() {
     pip3 install -r /root/sources/assets/python/requirements.txt
 
     install_exegol-history
+
+    # TLDR
+    pipx install --system-site-packages tldr
+    tldr -u
 
     post_install
     end_time=$(date +%s)
