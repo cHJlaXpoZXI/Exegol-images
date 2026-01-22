@@ -538,9 +538,9 @@ function package_base() {
     cp -v /root/sources/assets/shells/exegol_shells_rc /opt/.exegol_shells_rc
     cp -v /root/sources/assets/shells/bashrc ~/.bashrc
     # Add /etc/zsh.d directory to import dynamically any script after /etc/zsh/zshrc
-    mkdir /etc/zsh.d && echo "test -d /etc/zsh.d && source /etc/zsh.d/*" >> /etc/zsh/zshrc
+    mkdir /etc/zsh.d && echo "test -d /etc/zsh.d && for f in \$(find -L /etc/zsh.d -maxdepth 1 -type f | sort); do source \$f; done" >> /etc/zsh/zshrc
     # Add /etc/bash.d directory to import dynamically any script after /etc/bash.bashrc
-    mkdir /etc/bash.d && echo "test -d /etc/bash.d && source /etc/bash.d/*" >> /etc/bash.bashrc
+    mkdir /etc/bash.d && echo "test -d /etc/bash.d && for f in \$(find -L /etc/bash.d -maxdepth 1 -type f | sort); do source \$f; done" >> /etc/bash.bashrc
 
     install_asdf
 
