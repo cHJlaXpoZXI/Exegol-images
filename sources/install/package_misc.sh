@@ -52,13 +52,13 @@ function install_uberfile() {
     add-to-list "uberfile,https://github.com/ShutdownRepo/Uberfile,Uberfile is a simple command-line tool aimed to help pentesters quickly generate file downloader one-liners in multiple contexts (wget / curl / powershell / certutil...). This project code is based on my other similar project for one-liner reverseshell generation Shellerator."
 }
 
-function install_arsenal() {
-    colorecho "Installing arsenal"
-    pipx install --system-site-packages git+https://github.com/Orange-Cyberdefense/arsenal
-    add-aliases arsenal
-    add-history arsenal
-    add-test-command "arsenal --version"
-    add-to-list "arsenal,https://github.com/Orange-Cyberdefense/arsenal,Powerful weapons for penetration testing."
+function install_aliasr() {
+    colorecho "Installing aliasr"
+    pipx install --system-site-packages git+https://github.com/Mojo8898/aliasr
+    add-aliases aliasr
+    add-history aliasr
+    add-test-command "aliasr --help"
+    add-to-list "aliasr,https://github.com/Mojo8898/aliasr,Aliasr is a modern and feature-rich TUI launcher for penetration testing commands inspired by Arsenal but with significantly improved functionality."
 }
 
 function install_whatportis() {
@@ -269,7 +269,7 @@ function package_misc() {
     install_searchsploit    # Exploitdb local search engine
     install_shellerator     # Reverse shell generator
     install_uberfile        # file uploader/downloader commands generator
-    install_arsenal         # Cheatsheets tool
+    install_aliasr          # Cheatsheets tool
     install_triliumnext     # notes taking tool
     install_ngrok           # expose a local development server to the Internet
     install_whatportis      # Search default port number
