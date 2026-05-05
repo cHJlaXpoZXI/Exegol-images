@@ -794,9 +794,11 @@ function install_naabu() {
 function install_burpsuite() {
     colorecho "Installing Burp"
     mkdir /opt/tools/BurpSuiteCommunity
-    # using $(which curl) to avoid having additional logs put in curl output being executed because of catch_and_retry
-    burp_version=$($(which curl) -s "https://portswigger.net/burp/releases#community" | grep -P -o "\d{4}-\d-\d" | head -1 | tr - .)
-    wget "https://portswigger.net/burp/releases/download?product=community&version=$burp_version&type=Jar" -O /opt/tools/BurpSuiteCommunity/BurpSuiteCommunity.jar
+    curl 'https://portswigger.net/burp/releases/data?previousLastId=-1&lastId=-1&pageSize=10' -o /tmp/burp_relases.json
+    burp_release=$(jq -r '.ResultSet.Results[] | select(.releaseChannels | contains(["Stable"])) | .builds[] | select(.BuildCategoryPlatformLabel == "JAR" and (.BuildCategoryId == "community" or .BuildCategoryId == "desktop")) | "\(.BuildCategoryId) \(.Version)"' /tmp/burp_relases.json | head -n 1)
+    burp_version=$(echo $burp_release | cut -d ' ' -f2)
+    burp_product=$(echo $burp_release | cut -d ' ' -f1)
+    wget "https://portswigger.net/burp/releases/startdownload?product=$burp_product&version=$burp_version&type=Jar" -O /opt/tools/BurpSuiteCommunity/BurpSuiteCommunity.jar
     # TODO: two lines below should set up dark theme as default, does it work?
     mkdir -p /root/.BurpSuite/
     # proxy (server) config for burpsuite
@@ -838,6 +840,7 @@ function install_burpsuite() {
     # Cleanup local burp database
     rm -rf /root/.java/.userPrefs/burp
     rm -rf /tmp/burp*.tmp
+    rm /tmp/burp_relases.json
     add-aliases burpsuite
     add-history burpsuite
     add-test-command "which burpsuite"
