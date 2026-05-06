@@ -796,8 +796,8 @@ function install_burpsuite() {
     mkdir /opt/tools/BurpSuiteCommunity
     curl 'https://portswigger.net/burp/releases/data?previousLastId=-1&lastId=-1&pageSize=10' -o /tmp/burp_relases.json
     burp_release=$(jq -r '.ResultSet.Results[] | select(.releaseChannels | contains(["Stable"])) | .builds[] | select(.BuildCategoryPlatformLabel == "JAR" and (.BuildCategoryId == "community" or .BuildCategoryId == "desktop")) | "\(.BuildCategoryId) \(.Version)"' /tmp/burp_relases.json | head -n 1)
-    burp_version=$(echo $burp_release | cut -d ' ' -f2)
-    burp_product=$(echo $burp_release | cut -d ' ' -f1)
+    burp_version=$(echo "$burp_release" | cut -d ' ' -f2)
+    burp_product=$(echo "$burp_release" | cut -d ' ' -f1)
     wget "https://portswigger.net/burp/releases/startdownload?product=$burp_product&version=$burp_version&type=Jar" -O /opt/tools/BurpSuiteCommunity/BurpSuiteCommunity.jar
     # TODO: two lines below should set up dark theme as default, does it work?
     mkdir -p /root/.BurpSuite/
