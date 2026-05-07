@@ -457,11 +457,12 @@ function install_hakrawler() {
 function install_gowitness() {
     # CODE-CHECK-WHITELIST=add-aliases
     colorecho "Installing gowitness"
+    asdf set golang 1.26.1
     go install -v github.com/sensepost/gowitness@latest
     asdf reshim golang
     add-history gowitness
     add-test-command "gowitness --help"
-    add-test-command "gowitness scan single --url https://exegol.readthedocs.io" # check the chromium dependency
+    add-test-command "gowitness scan single --url https://docs.exegol.com/" # check the chromium dependency
     add-to-list "gowitness,https://github.com/sensepost/gowitness,A website screenshot utility written in Golang."
 }
 
