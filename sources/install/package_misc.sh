@@ -102,7 +102,8 @@ function install_triliumnext() {
     fi
     #git -C /opt/tools/ clone --depth 1 https://github.com/triliumnext/notes.git triliumnext
     cd /opt/tools/triliumnext || exit
-    zsh -c "source ~/.zshrc && nvm use default && npm install"
+    # TriliumNext dependencies require Node >= 20; enforce a stable LTS for CI reproducibility.
+    zsh -c "source ~/.zshrc && nvm install --lts=jod && nvm use --lts=jod && npm ci --no-audit --fund=false"
     mkdir /opt/tools/triliumnext/data
     # config.ini contains the exposition port and host
     cp -v /root/sources/assets/triliumnext/config.ini /opt/tools/triliumnext/data/config.ini
