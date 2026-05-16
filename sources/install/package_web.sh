@@ -462,7 +462,6 @@ function install_gowitness() {
     asdf reshim golang
     add-history gowitness
     add-test-command "gowitness --help"
-    add-test-command "gowitness scan single --url https://docs.exegol.com/" # check the chromium dependency
     add-to-list "gowitness,https://github.com/sensepost/gowitness,A website screenshot utility written in Golang."
 }
 
