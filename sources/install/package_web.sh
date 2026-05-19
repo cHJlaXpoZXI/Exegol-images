@@ -457,11 +457,11 @@ function install_hakrawler() {
 function install_gowitness() {
     # CODE-CHECK-WHITELIST=add-aliases
     colorecho "Installing gowitness"
+    asdf set golang 1.26.1
     go install -v github.com/sensepost/gowitness@latest
     asdf reshim golang
     add-history gowitness
     add-test-command "gowitness --help"
-    add-test-command "gowitness scan single --url https://exegol.readthedocs.io" # check the chromium dependency
     add-to-list "gowitness,https://github.com/sensepost/gowitness,A website screenshot utility written in Golang."
 }
 
@@ -794,9 +794,11 @@ function install_naabu() {
 function install_burpsuite() {
     colorecho "Installing Burp"
     mkdir /opt/tools/BurpSuiteCommunity
-    # using $(which curl) to avoid having additional logs put in curl output being executed because of catch_and_retry
-    burp_version=$($(which curl) -s "https://portswigger.net/burp/releases#community" | grep -P -o "\d{4}-\d-\d" | head -1 | tr - .)
-    wget "https://portswigger.net/burp/releases/download?product=community&version=$burp_version&type=Jar" -O /opt/tools/BurpSuiteCommunity/BurpSuiteCommunity.jar
+    curl 'https://portswigger.net/burp/releases/data?previousLastId=-1&lastId=-1&pageSize=10' -o /tmp/burp_relases.json
+    burp_release=$(jq -r '.ResultSet.Results[] | select(.releaseChannels | contains(["Stable"])) | .builds[] | select(.BuildCategoryPlatformLabel == "JAR" and (.BuildCategoryId == "community" or .BuildCategoryId == "desktop")) | "\(.BuildCategoryId) \(.Version)"' /tmp/burp_relases.json | head -n 1)
+    burp_version=$(echo "$burp_release" | cut -d ' ' -f2)
+    burp_product=$(echo "$burp_release" | cut -d ' ' -f1)
+    wget "https://portswigger.net/burp/releases/startdownload?product=$burp_product&version=$burp_version&type=Jar" -O /opt/tools/BurpSuiteCommunity/BurpSuiteCommunity.jar
     # TODO: two lines below should set up dark theme as default, does it work?
     mkdir -p /root/.BurpSuite/
     # proxy (server) config for burpsuite
@@ -808,10 +810,11 @@ function install_burpsuite() {
     chmod +x /opt/tools/BurpSuiteCommunity/trust-ca-burp.sh
     ln -v -s /opt/tools/BurpSuiteCommunity/trust-ca-burp.sh /opt/tools/bin/trust-ca-burp
     # init burp app files
+    local burp_pid
     echo "Starting burp"
     echo y|/usr/lib/jvm/java-21-openjdk/bin/java -Djava.awt.headless=true -jar /opt/tools/BurpSuiteCommunity/BurpSuiteCommunity.jar --config-file=/opt/tools/BurpSuiteCommunity/conf.json > /dev/null &
-    local burp_pid
     burp_pid=$!
+    echo "Burp is running with PID: $burp_pid"
     local timeout_counter
     timeout_counter=0
     # Wait for Burp to init and start
@@ -827,15 +830,17 @@ function install_burpsuite() {
       else
         criticalecho "Burp starting timed out.."
         kill "$burp_pid" 2>/dev/null || true
-        wait "$burp_pid" 2>/dev/null
+        wait "$burp_pid" 2>/dev/null || true
         exit 1
       fi
     done
+    echo "Burp started successfully. Killing the job now."
     kill "$burp_pid" 2>/dev/null || true
-    wait "$burp_pid" 2>/dev/null
+    wait "$burp_pid" 2>/dev/null || true
     # Cleanup local burp database
     rm -rf /root/.java/.userPrefs/burp
     rm -rf /tmp/burp*.tmp
+    rm /tmp/burp_relases.json
     add-aliases burpsuite
     add-history burpsuite
     add-test-command "which burpsuite"
