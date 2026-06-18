@@ -335,6 +335,7 @@ function install_impacket() {
     cp -v /root/sources/assets/grc/conf.getgpppassword /usr/share/grc/conf.getgpppassword
     cp -v /root/sources/assets/grc/conf.rbcd /usr/share/grc/conf.rbcd
     cp -v /root/sources/assets/grc/conf.describeTicket /usr/share/grc/conf.describeTicket
+    cp -v /root/sources/assets/grc/conf.raiseChild /usr/share/grc/conf.raiseChild
     add-aliases impacket
     add-history impacket
     # making sure we have the right mention of the fork
@@ -1652,6 +1653,7 @@ function install_tdo_dump() {
     source ./venv/bin/activate
     pip3 install git+https://github.com/ThePorgs/impacket pycryptodome
     deactivate
+    cp -v /root/sources/assets/grc/conf.tdo_dump /usr/share/grc/conf.tdo_dump
     add-aliases tdo_dump
     add-history tdo_dump
     add-test-command "tdo_dump.py --help"
