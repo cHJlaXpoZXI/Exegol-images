@@ -1644,6 +1644,20 @@ function install_evenmonitor() {
     add-to-list "EVENmonitor,https://github.com/NeffIsBack/EVENmonitor,Monitor the Windows Event Log with grep-like features or filtering for specific Event IDs "
 }
 
+function install_tdo_dump() {
+    colorecho "Installing tdo_dump"
+    git -C /opt/tools/ clone --depth 1 https://github.com/AlmondOffSec/tdo_dump
+    cd /opt/tools/tdo_dump || exit
+    python3 -m venv --system-site-packages ./venv
+    source ./venv/bin/activate
+    pip3 install git+https://github.com/ThePorgs/impacket pycryptodome
+    deactivate
+    add-aliases tdo_dump
+    add-history tdo_dump
+    add-test-command "tdo_dump.py --help"
+    add-to-list "tdo_dump,https://github.com/AlmondOffSec/tdo_dump,Proof-of-Concept tool to dump trusted domain objects and extract trust credentials for lateral movement across domain boundaries"
+}
+
 # Package dedicated to internal Active Directory tools
 function package_ad() {
     set_env
@@ -1766,6 +1780,7 @@ function package_ad() {
     install_impacket_og            # Impacket scripts (original version)
     install_bloodbash              # Bloodhound in terminal
     install_evenmonitor            # Monitor the Windows Event Log with grep-like features or filtering for specific Event IDs
+    install_tdo_dump               # Dump trusted domain objects to extract trust credentials
     post_install
     end_time=$(date +%s)
     local elapsed_time=$((end_time - start_time))
