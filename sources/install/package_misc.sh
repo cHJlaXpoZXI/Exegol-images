@@ -260,7 +260,7 @@ function install_nfsshell() {
     add-to-list "nfsshell,https://github.com/Supermathie/nfsshell,NFSShell is a tool for interacting with NFS shares without mounting them."
 }
 function install_grimoire() {
-    # CODE-CHECK-WHITELIST=add-aliases
+    # CODE-CHECK-WHITELIST=add-aliases,add-history
     colorecho "Installing grimoire"
     pipx install --system-site-packages git+"https://github.com/PentHertz/grimoire"
     add-history grimoire
