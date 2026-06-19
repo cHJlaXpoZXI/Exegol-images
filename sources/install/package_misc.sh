@@ -263,7 +263,6 @@ function install_grimoire() {
     # CODE-CHECK-WHITELIST=add-aliases,add-history
     colorecho "Installing grimoire"
     pipx install --system-site-packages git+"https://github.com/PentHertz/grimoire"
-    add-history grimoire
     add-test-command "grimoire --help"
     add-to-list "grimoire,https://github.com/PentHertz/grimoire,Grimoire clones a curated set of security knowledge bases indexes all of their markdown/YAML into a single full-text search index and serves a fast web UI."
 }
