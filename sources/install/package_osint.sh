@@ -196,7 +196,7 @@ function install_linkedin2username() {
     cd /opt/tools/linkedin2username || exit
     python3 -m venv --system-site-packages ./venv
     source ./venv/bin/activate
-    pip3 install -r requirements.txt
+    pip3 install .
     deactivate
     add-aliases linkedin2username
     add-history linkedin2username
@@ -249,8 +249,10 @@ function install_photon() {
 function install_ipinfo() {
     # CODE-CHECK-WHITELIST=add-aliases
     colorecho "Installing ipinfo"
-    # TODO: npm venv
-    sudo npm install ipinfo-cli --global
+
+    go install -v github.com/ipinfo/cli/ipinfo@latest
+    asdf reshim golang
+
     add-history ipinfo
     add-test-command "ipinfo 127.0.0.1"
     add-to-list "ipinfo,https://github.com/ipinfo/cli,Get information about an IP address or hostname."
