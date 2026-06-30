@@ -8,7 +8,7 @@ function install_network_apt_tools() {
     colorecho "Installing network apt tools"
     export DEBIAN_FRONTEND=noninteractive
     fapt wireshark tshark hping3 masscan netdiscover tcpdump iptables traceroute dns2tcp freerdp2-x11 \
-    rdesktop xtightvncviewer hydra mariadb-client redis-tools mitmproxy fping libfuse3-dev
+    rdesktop xtightvncviewer hydra mariadb-client redis-tools mitmproxy fping
 
     add-history wireshark
     add-history tshark
@@ -337,6 +337,7 @@ function install_sharker() {
 function install_nfs_security_tools() {
     # CODE-CHECK-WHITELIST=add-aliases
     colorecho "Installing nfs-security-tools"
+    fapt libfuse3-dev
     pipx install git+https://github.com/hvs-consulting/nfs-security-tooling.git
     add-history nfs_security_tools
     add-test-command "nfs_analyze --help"
