@@ -8,7 +8,7 @@ function install_network_apt_tools() {
     colorecho "Installing network apt tools"
     export DEBIAN_FRONTEND=noninteractive
     fapt wireshark tshark hping3 masscan netdiscover tcpdump iptables traceroute dns2tcp freerdp2-x11 \
-    rdesktop xtightvncviewer hydra mariadb-client redis-tools mitmproxy fping
+    rdesktop xtightvncviewer hydra mariadb-client redis-tools mitmproxy fping libfuse3-dev
 
     add-history wireshark
     add-history tshark
@@ -334,6 +334,15 @@ function install_sharker() {
     add-to-list "sharker,https://github.com/synacktiv/sharker,A fast and reliable network capture analyzer"
 }
 
+function install_nfs_security_tools() {
+    # CODE-CHECK-WHITELIST=add-aliases
+    colorecho "Installing nfs-security-tools"
+    pipx install git+https://github.com/hvs-consulting/nfs-security-tooling.git
+    add-history nfs_security_tools
+    add-test-command "nfs_analyze --help"
+    add-to-list "nfs_security_tools,https://github.com/hvs-consulting/nfs-security-tooling,NFS offensinve tooling to detect common misconfigurations on NFS servers that allow access to files outside the exported directories and privilege escalation."
+}
+
 # Package dedicated to network pentest tools
 function package_network() {
     set_env
@@ -364,6 +373,7 @@ function package_network() {
     install_ssh-audit               # SSH server audit
     install_penelope                # Shell handler
     install_sharker                 # A simple, reliable and reasonably fast network capture analyzer.
+    install_nfs_security_tools      # Offensive toolkit for NFS shares
     post_install
     end_time=$(date +%s)
     local elapsed_time=$((end_time - start_time))
